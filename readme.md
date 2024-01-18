@@ -92,6 +92,49 @@ While the attack life cycle does a good job describing the process an attacker g
 -	Exfiltration: Data that has been collected needs to be moved out to the attacker locations so it can be dealt with. Moving the data out of the target environment to the attacker’s place is exfiltration. 
 -	Impact: Attackers aren’t always looking to steal information. Sometimes they are looking to be destructive, or in the case of some types of ransomware, they are looking to modify data by encrypting it so victims cant get access, requiring the pay the attacker. 
 
+# Methodology of Ethical Hacking
+The basic methodology is meant to reproduce what real-life attackers would do. You will see similarities here to both the cyber kill chain and the attack life cycle.
 
+## Reconnaissance and Footprinting
+Reconnaissance is where you gather information about your target. Footprinting is just getting an idea of the “footprint” of the organization, meaning the size and appearance. The objective of reconnaissance and footprinting is determining the size and scope of your test. 
+
+In the process of doing this work, you may also turn up personal information belonging to employees at your target. This will be useful when it comes to social engineering attacks. These types of attacks make up `80 to 90 percent` of infiltration as a result of these types of social engineering attacks. 
+
+## Scanning and Enumeration
+Once you have network blocks identified, you will want to identify systems that are accessible within those network blocks; this is the scanning and enumeration stage. You will need to identify services running on any available host. These services will be used as entry points. This includes not only a list of all open ports, which will be useful information, but also the identity of the service and software running behind each open port. 
+
+This may also result in gathering information that different services provide. This includes the software providing the services, such as NGINX, Apache, or IIS for a web server. Additionally, there are services that may provide a lot of details about not only the software but the internals of the organization. This may be usernames. Some Simple Mail Transfer Protocol (SMTP) servers will give up valid usernames if they are queried correctly. Windows servers using the Server Message Block (SMB) protocol or the Common Internet File System (CIFS) protocol can be asked for information.
+
+## Gaining Access
+This is where you demonstrate that some services are potentially vulnerable. You do that by exploiting the service. Documentation is very important for this part.
+
+Technical attacks, like those exploiting vulnerabilities in listening network services, are sometimes thought of as how systems get compromised, but the reality is that social engineering attacks are far more likely to be the way attackers gain access to systems. This is one of the reasons why enumeration is important – because you need targets for social engineering attacks. 
+
+Another mechanism for gathering information from users is to get them to visit a website. This may be a website that you, as the attacker, have loaded with malicious software that will infect their systems.
+
+## Maintaining Access
+ As attacks take time and vulnerabilities change with patching or systems might need to shutdown, you will need to ensure you have persistent access.
+
+This is another stage where malware can be beneficial. You may need to install a rootkit, for example, that can provide you with a backdoor as well as the means to obscure your actions and existence on the system. You may need to install additional software to maintain access. 
+
+## Covering Tracks
+Covering your tracks is where you hide or delete any evidence to which you managed to get access. This can be accomplished with malware that ensures that your actions aren’t logged or perhaps the malware misreport system information, like network connections. 
+
+One thing to keep in mind when you are trying to cover your tracks is that sometimes your actions may also provide evidence of your work. For example, **wiping logs on a Windows system will leave a log entry indicating that the log have been wiped.**
+
+Ethical Hacking Methods:
+-	Reconnaissance and footprinting
+-	Gaining access
+-	Covering tracks
+-	Planning and direction
+-	Dissemination and feedback
+
+## Flashcard Review
+-	Black-hat hacker – Who violates computer security for personal gain or pure maliciousness?
+-	White-hat hacker – Who is the opposite of a black-hat hacker?
+-	Gray-hat hacker – Who falls somewhere between a black-hat hacker and a white-hat hacker?
+-	Removing evidence of your presence in a system - What is the purpose of covering the track?
+-	Determining the size and scope of your test - What is the objective of reconnaissance and footprinting?
+-	Giving attackers remote access to the infected system - What is the purpose of the command and control (C2) phase?
 
 
