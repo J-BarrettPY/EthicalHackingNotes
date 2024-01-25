@@ -17,6 +17,9 @@ Perhaps it goes without saying, but you are not allowed to engage in any illegal
 
 Communication is also important when you embark on an engagement, regardless of whether you are working on contract or are a full-time employee.
 
+Disclosure:
+Rain Forest Puppy polciy - working closely with vendors to ensure they have a proper fix before going public (summorization)
+
 # Overview of Ethical Hacking
 
 Fun fact: Mirai botnet, which infected smaller, special-purpose devices running an embedded implementation of Linux, is believed to consist of well over 100k bots with the possibility being more than one million. 
