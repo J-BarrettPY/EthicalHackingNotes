@@ -17,9 +17,6 @@ Perhaps it goes without saying, but you are not allowed to engage in any illegal
 
 Communication is also important when you embark on an engagement, regardless of whether you are working on contract or are a full-time employee.
 
-Disclosure:
-Rain Forest Puppy polciy - working closely with vendors to ensure they have a proper fix before going public (summorization)
-
 # Overview of Ethical Hacking
 
 Fun fact: Mirai botnet, which infected smaller, special-purpose devices running an embedded implementation of Linux, is believed to consist of well over 100k bots with the possibility being more than one million. 
@@ -139,5 +136,130 @@ Ethical Hacking Methods:
 -	Removing evidence of your presence in a system - What is the purpose of covering the track?
 -	Determining the size and scope of your test - What is the objective of reconnaissance and footprinting?
 -	Giving attackers remote access to the infected system - What is the purpose of the command and control (C2) phase?
+
+# Network Foundations
+
+## OSI Layers 
+-	Application
+-	Presentation
+-	Session
+-	Transport
+-	Network
+-	Data Link
+-	Physical
+
+Application: The Application layer is the one closest to the end user. Application layer protocols manage the communication needs of the application. For example, the Hypertext Transfer Protocol (HTTP) is an Application layer protocol. 
+
+Presentation: The Presentation layer is responsible for preparing data for the Application layer. It ensures the data handed up to the application is in the right format so it can be consumed. When systems are communicating, there may be disconnects in formatting between the two endpoints, and the Presentation layer makes sure that data is formatted correctly. As such, character encoding formats like the American Standard Code for Information Interchange (ASCII), Unicode, and the Extended Binary Coded Decimal Interchange Code (EBCDIC) all belong at the Presentation layer. Additionally, so does the Joint Photographic Experts Group (JPEG).
+
+Session: The Session layer manages the communication between the endpoints when it comes to maintaining the communication of the applications (the client or sever). Remote procedure calls (RPCs) are an example of a function at the Session layer. The Session layer takes care of making sure that files are successfully transmitted and complete for example.
+
+Transport: The Transport layer takes care of segmenting messages for transmission. Both the TCP and the UDP are transport protocols. 
+
+Network: The Network layer gets messages from one endpoint to another. IP is one protocol that exists or operates at this layer.
+
+Data Link: One other address to contend with is the media access control (MAC) address. This is a layer 2 address, identifying the network interface on the network so communications can get from one system to another on the local network. The Address Resolution Protocol (ARP), virtual local area networks (VLANs), Ethernet, and Frame Relay are Data Link layer protocols.
+
+Physical: This is all the protocols that manager the physical communications. 10BaseT, 10Base2, 100BaseTX, and 1000BaseT are all examples of Physical layer protocols.
+
+## TCP
+
+-	Application
+-	Transport
+-	Internet
+-	Link
+
+Essentially what happens is that the Session, Presentation, and Application layers from the OSI model are collapsed into the Application layer in the TCP/IP model. Additionally, the Physical and Data Link layers from the OSI model are collapsed into the Link layer in the TCP/IP model. 
+
+# Knowledge Check
+True or false about communication models:
+-	They are broken into layers and the layers are stacked on top of one another. Hence, they are generally referred to as communication stacks.
+-	They make use of the protocol, which is a set of rules or conventions that dictate communication.
+-	The two main communication models are the OSI model and the TCP/IP model.
+-	The OSI model has four layers, whereas the TCP/IP model has seven layers.
+-	The OSI model is developed by ISO, whereas the TCP/IP model is developed by ARPAnet.
+
+F, T, T, F, T
+
+Application: Determines whether a remote communication partner is available and accessible.
+Network: Responsible for adding routing and addressing information to the data.
+Presentation: Imposes common or standardized structure and formatting rules onto the data.
+Session: Responsible for establishing, maintaining, and terminating communications between two computers.
+Transport: Responsible for managing the connection integrity and controlling the session.
+
+TCP/IP Architecture Layers:
+-	Application
+-	Transport
+-	Internet
+-	Link
+
+## Topologies
+-Bus network, consists off a single network cable to which every device on the network connects.
+-Star network has a mediating device between all devices. This may be a hub or switch.
+-Ring network centralized unit which all devices connect to.
+-Mesh all devices are connected to each other.
+
+## Physical Networking
+
+# Knowledge Check
+-	A MAC address is represented in hexadecimal values because it’s a common way to represent octets.
+-	The common format of a MAC address is 8 octets, generally separated by colons.
+-	Users send messages to every device on the network by using the broadcast address. The broadcast MAC address is ff:ff:ff:ff:ff.
+-	Switching makes determinations about what traffic goes to which port based on the destination IPv4 address.
+-	Switching reduces the amount of traffic going out the switch port and down the wire and improves performance.
+
+T, F, T, F, T
+
+## IP
+
+# Knowledge Check
+-	IPv6: Uses 128-bit addresses laid out in a hexadecimal notation.
+-	IPv6: Supports auto and renumbering address configuration.
+-	IPv4: Supports manual and DHCP address configuration.
+-	IPv4: Uses 32-bit addresses laid out in a dotted-decimal notation.
+
+Type of service: Assists network elements in making decisions about the QoS by prioritizing and deprioritizing messages.
+Time to live: Indicates how long a message can stay on the network before being considered expired.
+Fragment offset: Indicates where the data in the packet aligns and is measured in units of 8-byte blocks.
+Checksum: Determines whether the header is intact and is defined as a 1’s complement sum of the 16-bit words.
+Protocol: Informs the receiving system which headers to look for in the transport header.
+
+## TCP
+
+# Knowledge Check
+
+Sequence number: A 32-bit number set to a random value when the conversation is initiated.
+Data offset: A 4-bit value indicating the number of 32-bit words in the TCP header.
+Control bit: A 6 flag bit value used to indicate the disposition of the message. 
+Source port: A 16-bit field that involves traffic originated from on the sending side.
+Checksum: A 16-bit field used to make sure that the communication hasn’t been corrupted. 
+Destination port: A 16-bit field assigned to the application communicating with the server.
+
+## Network Architectures
+MAN: Serves a large geographical area that sits in between a local area network and a wide area network.
+LAN: Includes systems that are local and probably in the same room or building or on the same floor.
+VLAN: Handles the isolation at layer 2 by software/firmware rather than physically.
+WAN: Consists of a network whose nodes are more than 10 or so miles apart.
+
+## Cloud Computing
+
+## Storage as a Service (SaaS)
+Storage as a service has a large number of uses, including backups and the ability to access your data no matter where you are or what device you are using.
+
+## Infrastructure as a Service (IaaS)
+Virtualizing your complete infrastructure.
+
+## Platform as a Service (PaaS)
+Using PaaS, you can quickly create an entire virtual network with all of the virtual devices needed to support the service or application. 
+
+## Software as a Service
+Using software online, such as Google Docs or Office Online. 
+
+# Knowledge Check
+
+PaaS: Provides the ability to develop applications in a virtual environment without the cost of a physical platform.
+IaaS: Offers computer networking, storage, load balancing, routing, and VM hosting.
+SaaS: Requires some type of front end or web portal to make itself available to the user. 
+
 
 
