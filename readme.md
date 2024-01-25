@@ -1,5 +1,5 @@
 # Ethical Hacking
-**Course/CEH Exam Notes**
+**CEH Exam Notes**
 
 ## Overview of Ethics
 
@@ -261,5 +261,81 @@ PaaS: Provides the ability to develop applications in a virtual environment with
 IaaS: Offers computer networking, storage, load balancing, routing, and VM hosting.
 SaaS: Requires some type of front end or web portal to make itself available to the user. 
 
+# Flashcards
+-	What is the Open System Interconnection (OSI) model?
+A: A seven-layer model describing functions of communications systems.
+-	What is the Transmission Control Protocol (TCP)/Internet Protocol (IP)?
+A: A four-layer architecture of communications protocols.
+-	What is a subnet mask?
+A: A four-octet value indicating which part of an Internet Protocol (IP) address in the network and which is the host.
+-	What is the Classless Inter-Domain Routing (CIDR)?
+A: The number of bits covering the network portion of the Internet Protocol (IP) address.
+-	What is layer 7?
+A: An Application layer of the Open System Interconnection (OSI) model, where protocols like Simple Mail Transfer Protocol (SMTP) and File Transfer Protocol (FTP) reside.
+-	What is the star network?
+A: A network topology where all endpoints connect to a central device.
+-	What is a Transmission Control Protocol (TCP)?
+A: A layer 4 protocol that is connected-oriented.
+-	What is the User Datagram Protocol (UDP)?
+A: A layer 4 protocol that is connectionless.
+-	What is a three-way handshake?
+A: The three messages used to establish a Transmission Control Protocol (TCP) connection (SYN, SYN/ACK, and ACK)
+-	What is a virtual machine?
+A: An operating system that doesn’t run on physical hardware but instead runs on a hypervisor, which virtualizes central processing unit (CPU), memory, network, and disk. 
+-	What is a virtual area network (VLAN)?
+A: A LAN where the isolation at layer 2 is handled by software/firmware rather than physically.
+-	What is IP Security (IPSec)?
+A: A set of functionality introduced in IPv6 that adds confidentiality and integrity controls to packets being transmitted.
 
 
+# Chapter 3 : The Triad
+The three elements of the triad are confidentiality, integrity, and availability. 
+
+## Confidentiality
+Keeping stuff safe and secure, yo.
+
+## Integrity
+Keeping stuff the same and uncorrupted, yo.
+
+A man-in-the-middle attack is one way for an attacker to compromise integrity. The attacker intercepts the data in transit, alters it, and then sends it on the way.
+
+## Availability
+Keeping stuff on, yo.
+
+Misconfigurations can result in problems with availability. So can malicious attacks, like DoS attacks.
+
+## Parkerian Hexad
+In 1998, Donn Parker extended the initial three properties by adding three more. The three additional properties:
+-	Possession (or Control): Confidential device, data, or information is no longer in the possession of your control.
+-	Authenticity: Making sure that when you get a piece of data, no matter what it is, its actually from where it says its from.
+-	Utility: Making sure that whatever you have, such as data, has a purpose. 
+
+# Knowledge Check
+
+Integrity: The consistency, accuracy, and validity of data or information.
+Confidentiality: A characteristic of a business resource ensuring access is restricted to only permitted users, applications, or computer systems.
+Availability: A characteristic of a resource being accessible to a user, application, or computer system when required.
+
+Parkerian Hexad properties:
+-	Integrity
+-	Possession
+-	Utility
+-	Authenticity 
+
+# Information Assurance and Risk
+
+Risk combines the likelihood of an event and its potential negative impact. It's more than just probability - it involves quantifying both the chance of an occurrence and its consequences. 
+
+Calculating risk, especially in complex areas like information security, is difficult due to variable factors. Understanding risk requires evaluating both the potential loss and its likelihood, crucial for prioritizing in fields like information security. 
+
+This approach distinguishes high-risk scenarios by considering both severity and probability, countering the common tendency to focus only on extreme outcomes.
+
+A threat agent is an entity that poses a potential danger, often exploiting vulnerabilities through various threat vectors. Understanding these agents and vectors is crucial for identifying and mitigating risks to valuable resources. Information assurance involves assessing these risks and implementing controls—preventive, detective, or corrective—to safeguard information assets. 
+
+These controls can be technical, like software solutions; administrative, like policies and procedures; or physical, like security cameras. Managing risk in business involves four strategies: 
+-	Acceptance (acknowledging and preparing to bear the risk)
+-	Transference (shifting the risk to another party, often through insurance)
+-	Mitigation (reducing the risk through various controls)
+-	Avoidance (not engaging in activities that introduce the risk). 
+
+Each strategy is chosen based on the business's understanding of the risk and its appetite for handling it.
