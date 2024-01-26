@@ -339,3 +339,144 @@ These controls can be technical, like software solutions; administrative, like p
 -	Avoidance (not engaging in activities that introduce the risk). 
 
 Each strategy is chosen based on the business's understanding of the risk and its appetite for handling it.
+
+# Knowledge Check
+Indicate if each of the given statements related to risk is true or false:
+-	Risk is the exposure to the chance of injury or loss.
+-	Risk is the intersection of asset and gain.
+-	A threat is something that can incur a breach of confidentiality, integrity, or availability.
+-	Race conditions are examples of risks that can be exploited.
+
+T, F, T, F
+
+# Policies, Standards, and Procedures
+Once a policy is created, standards are built out of those policies. Closest to where the work actually gets done are procedures. These are developed because of what the standards say.
+
+## Security Policies
+A security policy is a statement of intention with regard to the resource of a business. It defines what a company considers to be security – what resources need to be protected, how resources should be utilized in a proper manner, how resources can or should be accessed. These policies are essential to good corporate governance, since the policies are lines that management draws. This means that having management set the tone and direction is not only a good idea, its also required. 
+
+Security policies are not only about defining important resources, they are also about setting expectations of employees. For example, an acceptable use policy. 
+
+Keep in mind as you are thinking about security policy the goals of your policies should be the confidentiality, integrity, and availability of information resources.
+
+Policies should be revisited on a regular basis. They are sufficiently high-level that they shouldn’t change every time there is a new set of technologies available, but they should evolve with changes in the threat landscape. 
+
+## Security Standards
+A standard is a direction about how policies should be implemented. The standard starts down the path of how we get from statements of intent to implementation, so we start to drill down from the high level of the policy. 
+
+Take, for example, a policy that states that all systems will be kept up-to-date. To get closer to implementation of that policy, you might have standards that relate to desktop systems, server systems, network devices, and any embedded devices. The requirements for each of those device types may be different, so the standards for them may be different. Desktop systems may just be expected to take all updates as they come, with the expectation that any potential outage could be remediated quickly on the off change that there was an outage on a handful of users’ desktops. 
+
+## Procedures
+Procedures are the actual implementation of the standard. These provide guidance about how, specifically, the standards are achieved at a granular level. This may be accomplished with step-by-step instructions on what needs to be done. There may be multiple procedures for each standard, since there may be multiple organizations involved in implementing the standard. 
+
+## Guidelines
+Guidelines are not standards in that they may not be requirements. Instead, they are suggestions on how policies may be implemented. A guideline may provide information about best practices, with the hope that the best practices may follow.
+
+# Knowledge Check
+Standard: Provides requirements specifying how an organization implements its information security policies. 
+Guideline: Provides the best strategies and suggestions about a given concept, technology, or task.
+Policy: Refers to high-level statements for an information security program.
+Procedure: Refers to a gradual process that an individual or organization must follow to achieve a security objective. 
+
+# Organizing Your Protections
+
+The MITRE Corporation developed ATT&CK in 2013 to collect common tactics, techniques, and procedures (TTPs) used by attackers. 
+The ATT&CK Framework is broken out into the following stages:
+-	Reconnaissance: The attacker is gathering information about the target in this stage.
+-	Resource Development: The attacker has to do a lot of work to create an infrastructure they will use to launch attacks from. This may include registering domain names, creating accounts, acquiring systems.
+-	Initial Access: The attacker here compromises the first systems. They may compromise an existing public-facing application or website. They may use phishing to get malware installed on a target system. They are getting their initial foothold into the organization in this stage.
+-	Execution: There are a lot of techniques an attacker may user to get code executed. The attacker doesn’t always have direct interactive access to the system, meaning they cant just double-click an icon or run a command-line program. They may rely on other techniques to get their code executed. There are a lot of ways of doing this, including using scheduled tasks, inter process communication, system services, or operating system-specific techniques like using the Windows Management Instrumentation (WMI) system. 
+-	Persistence: With persistence, the attacker is trying to maintain consistent access to the system they have compromised. Systems reboot, sometimes they are powered down and later restarted, or sometimes users log out and then later log back in. 
+-	Privilege Escalation: With privilege escalation, attackers are trying to get the highest level of privileges they can. Most users don’t have much in the way of access to their systems. They can get to their data and run programs, but they cant do useful things like install system services or extract system memory. This is where getting additional, elevated privileges is helpful. They may do this by injecting code into an exiting process that already has administrative privileges. They may get a service to run at boot time, since the boot process automatically has elevated privileges. 
+-	Defense Evasion: Attackers will need to get through a lot of different types of defense. Businesses certainly, though people as well, make use of software on system to protect against these very attackers. This may be anti-malware or some other detection or prevention software. Attackers need to execute software in ways that wont be seen as malicious or suspicious. This may be using an old-school technique like using a rootkit, where the attacker may be provided remote access while also hiding all of the software being used from the user or other software looking for it. (LOL no mention of obfuscation in this section? WTF??? -------- hackers obviously obfuscate code to get around anti-malware, either manually obfuscating the code to be unreadable or using software which compacts their code making it “laired” and extremely difficult without using forensics to see whats happening. uCertify hackers sucks.)
+-	Credential Access: Applications and systems typically require usernames and passwords to grant access. Attackers will want to try to get these credentials for user elsewhere. 
+-	Discovery: Attackers are probably not going to be satisfied getting access to just your system. They will be looking for additional systems to get access to.
+-	Lateral Movement: One of the reasons for doing discovery, in addition to seeing what data you may have access to that may be stolen for profit, it to determine what other systems may be attacked from your system. The attacker may make use of you and whatever you system has access to.
+-	Collection: Just as with discovery, collection is about gather information. This may be information that could be used to attack other systems, or it could be information the attacker wants to steal for sale or use somewhere else.
+-	Command and Control: Keey in mind that attackers will want to maintain access to the systems for as long as possible. This stage means setting up and retaining remote access control over the entire environment.
+-	Exfiltration: Even if they continue to remain in the environment, they will want to get data they have collected out. This is where they exfiltrate the data.
+-	Impact: This is where the attacker may decide to burn the house, as it were…………….. Okay so they blow stuff up or whatever according to boomers.
+
+# Knowledge Check
+Execution: Tries to run malicious code, such as running a remote access tool.
+Privilege Escalation: Tries to gain higher-level permissions, such as leveraging a vulnerability to elevate access.
+Reconnaissance: Gathers information to plan future adversary operations, such as information about the target organization. 
+Impact: Manipulates, interrupts, or destroys systems and data, such as encrypting data with ransomware. 
+Credential Access: Steals accounts names and passwords, such as keylogging.
+Persistence: Tries to maintain their foothold, such as changing configurations.
+
+# Security Technology
+## Firewalls
+duh.
+
+## Packet Filters
+At the basic level, a firewall is a packet filter. 
+
+## Stateful Filtering
+Keeps track of the state of messages within the conversation between client and server. This means the firewall has to have a state table, so it knows about all of the traffic flows passing through it. 
+
+## Deep Packet Inspection
+A deep packet inspection (DPI) firewall looks beyond the headers and into the payload of the packet. With this approach, its easier to identity malware and other inbound attacks. A DPI firewall would require signatures that it should look for in the packet to determine whether something is going to be malicious so it can block the traffic from coming into the network.
+
+## Application Layer Firewalls
+There are application layer firewalls in addition to the DPI firewalls. While these firewalls also inspect the packet, they commonly are specific to a particular protocol. 
+
+## Unified Threat Management
+Sometimes firewalls aren’t enough. Even in the case of application layer firewalls, you still need to protect users. Users are often the most vulnerable point of your network, and they are regularly targets of social engineering and malware attacks. A unified threat management (UTM) device is one that consolidates a lot of security functions into a single system that may be placed at a single point in the network. 
+
+## Intrusion Detection Systems
+Where firewalls have the ability to block or allow packets in the network stream, a network IDS can take some of the same sorts of rules and generate log messages. A network IDS watches all network traffic that passes by the network interface. This means that placement is important. There may be different approaches to placement, depending on the IDS product being used. One of these approaches is to place the IDS connected in parallel rather than in series at the very perimeter of the network so all network traffic coming in can be observed.
+
+IDS just alert or log.
+
+## Intrusion Prevention Systems
+With the IPS in the flow, it can act like a firewall, making decisions about whether to accept or reject packets as they enter the network. The difference between an IPS and a firewall is that the “firewall rules” on an IPS would be dynamic. Rather than having large blanket rules blocking IP addresses wholesale, the IPS would make decisions based on the contents of the packet. 
+
+## Endpoint Detection and Response
+Endpoint Detection and Response (EDR) is a class of software that can perform a range of functions that are useful to security operations staff. One function they may provide is anti-malware. EDR solutions may alsop detect other malicious behavior.
+
+## Security Information and Event Management 
+A good practice from the standpoint of both system administration and security is system logging. Logs are helpful to diagnose problems in the system and network. They can also help in an investigation of a potential issue. Forensic investigators and incident responders will find them invaluable. 
+
+This is where a good log management can be helpful. In the case of security incidents, these log management systems can also include search and correlation tools. While there are many log management solutions, many organizations are moving to something called security information and event management (SIEM). SIEM software, however, is not simply a log management solution. SIEM software is used to correlate and analyze security alerts and better visualize your data. 
+
+The advantage to using SIEM is being able to pill a lot of data together so you can get broader picture of what is happening across the network. 
+
+# Knowledge Check
+
+WAF: Uses a set of rules to detect and block requests and responses.
+DPI: Evaluates the contents of a packet that is going through a checkpoint.
+Stateful Filtering: Tracks the status of active connections and uses this information to determine which network packets to allow through the firewall.
+Packet Filtering: Manages outgoing and incoming packets and allows them to pass or halt based on the IP addresses, protocols, and ports.
+
+# Flashcards
+
+What monitors network traffic and parse through it to identify packets that contain possibly malicious content?
+A: Snort
+What is a procedure?
+A: The actual implementation of the standard.
+
+What is a firewall?
+A: System or software that allows blocking, rejecting, or allowing network traffic.
+
+What is a threat?
+A: An entity likely to cause damage or loss to an organization.
+
+What is a risk?
+A: The measurable potential (probability) for loss or damage.
+
+What is the security information and event management (SIEM)?
+A: A log management solution used to correlate and analyze security alerts.
+
+What is unified threat management (UTM)?
+A: Next-generation firewall device that may include intrusion detection system (IDS), anti-malware, and other security functions.
+
+What is the security triad?
+A: Three essential security properties: confidentiality, integrity, availability.
+
+What is a security policy?
+A: A high-level statement of the security objectives of an organization.
+
+
+
+
