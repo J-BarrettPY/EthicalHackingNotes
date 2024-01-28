@@ -432,7 +432,7 @@ IDS just alert or log.
 ## Intrusion Prevention Systems
 With the IPS in the flow, it can act like a firewall, making decisions about whether to accept or reject packets as they enter the network. The difference between an IPS and a firewall is that the “firewall rules” on an IPS would be dynamic. Rather than having large blanket rules blocking IP addresses wholesale, the IPS would make decisions based on the contents of the packet. 
 
-## Endpoint Detection and Response
+## Endpoint Detection and Response 
 Endpoint Detection and Response (EDR) is a class of software that can perform a range of functions that are useful to security operations staff. One function they may provide is anti-malware. EDR solutions may alsop detect other malicious behavior.
 
 ## Security Information and Event Management 
