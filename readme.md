@@ -1,5 +1,5 @@
 # Ethical Hacking
-**CEH Exam Notes**
+**CEH Exam Notes from EC-Council**
 
 ## Overview of Ethics
 
