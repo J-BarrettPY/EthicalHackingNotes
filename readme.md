@@ -432,7 +432,7 @@ IDS just alert or log.
 ## Intrusion Prevention Systems
 With the IPS in the flow, it can act like a firewall, making decisions about whether to accept or reject packets as they enter the network. The difference between an IPS and a firewall is that the “firewall rules” on an IPS would be dynamic. Rather than having large blanket rules blocking IP addresses wholesale, the IPS would make decisions based on the contents of the packet. 
 
-## Endpoint Detection and Response 
+## Endpoint Detection and Response
 Endpoint Detection and Response (EDR) is a class of software that can perform a range of functions that are useful to security operations staff. One function they may provide is anti-malware. EDR solutions may alsop detect other malicious behavior.
 
 ## Security Information and Event Management 
@@ -476,6 +476,63 @@ A: Three essential security properties: confidentiality, integrity, availability
 
 What is a security policy?
 A: A high-level statement of the security objectives of an organization.
+
+# Footprinting and Reconnaissance
+## Open Source Intelligence
+Provides details about your target. If you are doing red teaming stuff, you may need to locate as much information as you can so you know not only what your attack surface looks like but possible ways in. Additionally, you can find a lot of information about individuals within an organization. This is useful for social engineering attacks – having contacts to go after is essential.
+
+The second reason is that organizations aren’t always aware of the amount of information they are leaking. As noted earlier, attackers can find footholds, as well as potential human targets for social engineering attacks. 
+
+## Companies
+There are several starting points when it comes to acquiring open sources intelligence about your target. The first is to look at the company overall. Youll want to gather information about locations the company’s has. 
+
+## EDGAR
+Public companies are required to provide information about themselves. There are resources you can use to look up that information. In the process, you may gather information about a company’s organizational structure. The organizational structure can tell you who has what position, so when you are working on sending out email messages to gather additional information later, you know who they should appear to be from. You can select the holder of an appropriate position. 
+
+The Securities and Exchange Commission (SEC)  has a database that stores all public filings associated with a company. The Electronic Data Gathering, Analysis, and Retrieval (EDGAR) system can be used to look up public filings such as the annual report in the form 10-K. Additionally, the quarterly reports, 10-Qs, are also submitted to EDGAR and stored there. These reports provide details about a company’s finances. The 11-K, a form including details about employee stock option plans, is also filed with EDGAR. Accessing EDGAR is as easy as going to EDGAR at the SEC website. 
+
+One of the most useful forms you can fin in EDGAR is Schedule 14A on SEC site, which is a proxy statement and will include the annual report to the shareholders, which may include a lot of useful information for you. 
+
+## Domain Registrars
+EDGAR is only for public companies. Not every company is public. Another source of information, related to the internet itself, is the domain registrars. You wont get the same sort of information from the domain registrars as you would from EDGAR, but its still sometimes a decent source of information. For a start, you can get the address of what is probably the company’s headquarters.
+
+This is not a guarantee, however. As mentioned, companies are starting to hide information provided to the registrars. Information is hidden behind the registrar. When you ask for information, you will get what the registrar has been asked to present and not necessarily the real details. 
+
+Before we get too far down this road, though, its probably useful for you to understand how the internet is governed when it comes to domains and addresses. First, there is the Internet Corporation for Assigned Names and Numbers (ICANN). Underneath ICANN is the Internet Assigned Numbers Authority (IANA), which is responsible for managing IP addresses, ports, protocols, and other essential numbers associated with the functioning of the internet. 
+
+In addition to ICANN, responsible for names and numbering, are the domain registrars. These organizations store information about addresses they are responsible for as well as contacts. There was a time when registering a domain and other data went through a single entity. Now, though, there are several companies that can perform registrant functions. 
+
+To grab information out of the regional Internet registry (RIR), you would use the whois program. This is a program that can be used on the command line on most Unix-like systems, including Linux and macOS. There are also websites that have implementations of whois if you don’t have a Unix-like system handy.
+
+## Regional Internet Registries
+Not all the useful information is stored with he domain registrars. There is other data that is important to be kept. Earlier, we discussed IANA. While the IANA server provided information about domain registrars, its purpose has long been to be central clearinghouse for addresses. This includes not only port numbers for well-known services but also IP addresses, based on need, to the RIRs. The RIRs then hand them out to organisations that fall into their geographic region.
+
+There are five RIRs around the world. They are based in different geographic regions, and an organization would refer to the RIR where they are located for things like IP addresses. The RIRs are the geographic areas they are responsible for are listed here:
+-	African Network Information Center (AfriNIC): Africa
+-	American Registry for Internet Numbers (ARIN): United States and Canada, as well as Antarctica and parts of the Caribbean.
+-	Asia Pacific Network Information Centre (APNIC): Asia, Australia, New Zealand, and neighboring countries.
+-	Latin America and Caribbean Network Information Centre (LACNIC): Latin America and parts of the Caribbean.
+-	Reseaux IP Europeens Network Coordination Centre (RIPE NCC): Europe, Russia, Greenland, the Middle East, and parts of Central Asia.
+
+All of these RIRs have their own databases that can queried using whois, just as we used whois to query information from the domain registrars. Typically,, you would use whois against the RIRs to find out who owns a particular IP address. 
+
+## People
+Use OSINT tools like theharvester.
+
+## Social Networking
+Getting information via social media lol.
+## Username Search.
+Sherlock or maigret.
+
+## LinkedIN
+Social media but for work.
+
+# Knowledge Check
+Click to select regional Internet registries (RIRs):
+-	AfriNIC
+-	LACNIC
+-	ARIN
+-	RIPE NCC
 
 
 
