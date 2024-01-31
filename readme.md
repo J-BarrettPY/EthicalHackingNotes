@@ -534,6 +534,98 @@ Click to select regional Internet registries (RIRs):
 -	ARIN
 -	RIPE NCC
 
+# Domain Name System
+DNS is a tiered system, and its tiered in a couple of ways. First in the Fully Qualified Domain Names (FQDNs) we use. An example to demonstrate: www.labs.domain.com is an FQDN because it refers to a specific host or system. It’s best to read FQDN from right to left, because that’s how DNS will read it when it comes time to resolving the FQDN to an IP address.
 
+In the beginning were the top-level domains (TLDs), and they were .com, .org, and .edu, as well as the ones for the different counties (.uk, .au, .ca, .sk, .us, and so on). Later, many more were added, but they are all still TLDs. 
+
+Second-level domains are where we start adding in organizations. The TLDs belong to the internet at large, so to speak. They have organizations that manage them, but they don’t “belong” to any one organization, at least not in the way the second-level domains can be said to. In our example, the second-level domain would be ‘domain’. 
+
+Under second-level domains are subdomains. Every domain can have as many levels of subdomains as they are willing to manage. 
+
+## Name Lookups
+When you visit a website, you enter something called a Uniform Resource Locater (URL). The URL consists, commonly, of two parts. The first is the Uniform Resource Identifier (URI). This is the protocol used (e.g., http:// or ftp://). Following the URI is the FQDN. Your browser will issue a request to the operating system to open a connection to the FQDN at the default port indicated by the URI.
+
+Before the connection can be opened, the system needs to have an IP address to put into the layer 3 headers. So, it issues a name resolution request. Each computer will have at least one name resolver configured. The name resolver is the system your computer goes to accomplish the name resolution. 
+
+The name resolver for TCP/IP networks is a DNS server, though other network protocols will use other name services. It takes in DNS requests and resolves them, based on what is being asked. Typically, the name resolver you will have configured will be what is called a caching name server. This means it gets requests from endpoints, resolves them, and caches the results for efficiency. This is distinct from what is known as authoritative server, which holds the records for a given domain. So, the first DNS request is the one from your system to the caching server, wherever it happens to be located.
+
+We start with the request labeled A. This goes to the name resolver labeled Caching DNS. The caching DNS server checks its cache and sees that it has no IP address stored, so it begins something called a recursive name query or recursive name resolution. It’s called recursive because it will end up with multiple requests that keep getting narrower until we end up with what we want. The caching server will need to start with the TLD. It will have a hints file, indicating the IP addresses for the root name servers. For our example, the caching server will need to identify the server to use for the .com TLD. Once it has identified the server it needs to send a request to, request B goes out, asking the root server for the IP address of the name server for the domain.com domain.
+
+The root server has the name server details for all the domains that fall under the TLD it is responsible for. The root server will reply to our caching server with the IP address for the name server for domain.com. When we did the whois lookups earlier, at the end of a whois lookup on a domain will be the name servers for that domain, since the name servers are stored with the domain. This, though, is why what we are doing is called a recursive query. We cant just ask the root server for the IP address of the hostname, so we have to ask it for a pointer to who to ask next. 
+
+Request C is the DNS request asking the authoritative name server for domain.com about labs.domain.com. Since labs.domain.com is separate from domain.com, what our caching server gets back is another name server. We are now at the point where the FQDN is being asked for. Request D goes out asking for the IP address of www.labs.domain.com. The authoritative server, which is the one we are asking because it has the authoritative information about that domain, responds with the IP address. It may actually respond with multiple IP addresses, but for our purposes, were going to just say it comes back with a single IP. Once the caching server has the IP, it sends the response back to our system, which can then issue request E, which isn’t a DNS request but a connection request to the web server.
+
+While DNS stores mappings between FQDNs and IP addresses, those are not the only data mappings that are stored. Some of the different record types you can and may want to look up include:
+-	A: An A record is an address record and it converts an FQDN to an IP address.
+-	AAAA: An AAAA record converts an FQDN to an IPv6 address.
+-	MX: Every domain has a mail exchanger record, used to indicate the host that email should be sent to for that domain.
+-	NS: The name server records are the FQDNs and IP addresses of the authoritative name servers for that domain.
+-	SOA: The start of authority record holds information about the zone, including the serial number, indicating when zone information has changed last.
+-	CNAME: A canonical name is an alias for an FQDN. This maps one hostname to another hostname or FQDN. The CNAME may refer to specifically a hostname since the domain name may already be assumed if its in the same domain.
+-	PTR: A pinter from an IP address to an FQDN. Unlike an A record, this is not necessary, but its considered useful. An FQDN always has to map to an IP address but an IP address does not have to map to a hostname. Often multiple FQDNs may map to a single IP address.
+
+# WOW THAT’S A LOT OF INFO LETS REVIEW!
+
+Example:
+```
+https://www.labs.domain.com
+```
+
+Fully Qualified Domain Names (FQDNs): `www.labs.domain.com`
+Top-Level Domains (TLDs): `.com`
+Scheme (part of URL and thus URI): https://
+Uniform Resource Locater: `https://www.labs.domain.com`
+DNS: Resolves IP address to domain names and vice versa. 
+
+## Using Host (DNS Lookup Using host)
+Perhaps the easiest tool to use is host. This is a program that you will find on most Unix-like systems, including Linux systems. You can pass the hostname you want the IP address for to host and you will get a response. 
+
+In addition to just a straightforward lookup of an IP address, we can use a different server than the one that is defined as our resolver. 
+
+## Using nslookup
+Another tool that can be used is nslookup. This can be used just like the program host, meaning you can just run nslookup www.example.com and get a response. An advantage to nslookup, however, is that you can issue many requests without having to keep running nslookup. When you run nslookup without any parameters, you will be placed into an nslookup shell, where you are interacting with the program, issuing requests. 
+
+DNS supports multiple resource records, though the most common is the address (A) record. When you see set type=ns, im telling nslookup to issue subsequent requests asking for name server (NS) records. This will tell us the authoritative name servers for the given domain. Once I had the list of NSs, I was able to set the server I was asking to one of the NSs. What this means is that instead of going to my caching server, nslookup is going to issue a DNS request directly to the authoritative server, which wouldn’t have to do any recursive search since it has the information being requested. 
+
+## Using dig
+The program dig is another utility that can be used for name resolutions. It also supports the same things we have been doing, meaning we can indicate a different name server and also request different resource records.
+
+Using dig, we can do exactly what we did earlier with host and nslookup. On the command line, you indicate the resource record you want. In our command line (dig mx wiley.com @car-ibextdns-01.wiley.com), mx is the resource record being requested, but it could just as easily be A or NS. It could also be PTR, if we wanted to get back an IP address from an FQDN. After the record type is the request. Since we are looking for a mail exchanger record, this would be a domain name, though you could issue an FQDN here, and you would get the mail exchanger records for the last domain that’s part of the FQDN. Finally, we indicate the server to ask using the @ sign.
+
+## Zone Transfers
+Issuing single requests is fine, but it assumes you know some information. In most cases, applications are asking for the information about IP addresses from FQDNs so the application can function correctly. In our cases, as ethical hackers, we are sometimes looking for all the hostnames that belong to a domain. This can be done using something called `zone transfer`. A zone transfer is legitimately used between multiple authoritative server for a domain and then multiple secondary servers. The secondary servers would issue a zone transfer request to the primary and update their records accordingly.
+
+We can use that capability, theoretically, to request all the records in a domain. Because of this capability, though, two things have happened. First, most domains you will run across wont allow zone transfers from anyone other than the secondary NSs that have been configured. Second, many companies use something called `split DNS`. Split DNS is where the outside world is given an authoritative server address to use for externally resolvable hosts, like the web server and the mail server. Any system inside the enterprise network would use the company resolver, which would be configured as authoritative for the corporate domain. This means it can have many other systems that are not known or available to the outside world but that internal systems can resolve and connect to.  
+
+To issue a zone transfer request, you can use the utilities we’ve already been using, though there are others. If you wanted to attempt a zone transfer using dig, for instance, the request type would be axfr. 
+
+## Brute Force
+As zone transfers are generally disallowed, you may have to rely on less elegant solutions to gather information about your target. Fortunately, there are some tools that may be of help here. One is `dnsrecon`, which can be used to extract some of the common resource record in DNS. Additionally, it can be used to identity hostnames as a result of repeated requests based on a world list provided to the program. 
+
+## Passive DNS
+In practice, there are two different phases of reconnaissance. While there is a lot of focus on gathering information to launch attacks, there is a lot of reconnaissance that happens after exploitation as well. You can perform reconnaissance from the outside as well as from the inside. Once you are on the inside, some of this gets a little easier, or at least we open some other doors for reconnaissance. A technique of using cached DNS entries on a local system is called `passive DNS reconnaissance`.
+
+Each time you perform a DNS lookup on some systems, the result will be cached locally. This caching of the address saves having to send a network request the next time you want to visit the same host. The length of time the entry will be cached is set by the time to live field in the DNS entry. This begins with the start of authority (SOA) record. This indicates when the domain record itself expires. Effectively, this tells anyone looking for information about the domain when they need to check again to see who the authoritative domain name servers are. There are NS records associated with every domain indicating what servers to ask for answers about that domain. These authoritative servers should always be asked unless a record is cached locally, whether directly on thee client requesting the information or the local caching serve the client is asking.
+
+In addition to the SOA record providing the timeout length for the domain itself, meaning the length of time you can rely on the name servers being valid before needing to check again, each individual record stored in DNS can have a time to live (TTL) value. This indicates how long any system can cache the result before checking again with the authoritative DNS server to ensure the value hasn’t changed. According to the specification for DNS, you don’t wait until the very end of the lifetime of an entry but instead use some value that is less than the full TTL. The TTL does provide guidance, though, on how long to hold on to a value in your local cache. 
+
+Windows systems will cache values, and you can dump the cache on them, as you see in the partial dump that follows here. To dump cache on a Windows system, you would use command-line access, either the old command line, or using PowerShell, you would just run `ipconfig /displaydns`. On Linux systems, you can get the same information only if your system is running a caching server. This may be a program like `dnsmasq`, which does DNS forwarding, or it could be the `nscd` service, which is the name server caching daemon.
+
+If you are doing external reconnaissance, this technique is unlikely to be of much use to you. Once you gain access to the inside of the network, though, you want to know all of the systems and IP addresses. From the outside, you can query open sources for details about address blocks that may be owned by the organization. On the inside of the network, they are probably using private addresses. There is no record anywhere of the blocks being used, unless you happen to get access to a network management system that records all the address blocks. Instead, what you can do is dump the DNS cache on a system you have access to. What you will get is not only hostnames but also the IP addresses that resolves to those hostnames. 
+
+If you see a lot of entries for the domain owned by the company in thee cache dump, you may well be seeing internal DNS records. Another way you may know you have internal addresses is if you see something ends in `.local.`. This is a top-level domain that cant be used across the internet, so it is sometimes used as a top-level domain (the last part of the fully qualified domain name that includes the hostname and the domain name) for the internal DNS implementations.
+
+ It is common for companies to use an implementation called `split DNS` where there is one server from the outside world, with a limited number of records. Typically, youd have FQDNs for any system that exposes essential services to the outside world. On top of the external DNS, there is probably an internal DNS. This is where all the systems inside the network get registered so you can use FQDNs rather than IP addresses. Your own system on an enterprise network may register with the DNS server so someone trying to get to your system would just refer to the FQDN of your system and be able to resolve that FQDN to an IP address. 
+
+# Knowledge Check
+
+Indicate if each of the given statements about a domain name system is true or fales:
+-	It is a tiered and decentralized naming system for computers, services, or other resources connected to the internet.
+-	It translates IP addresses to names and back that are available on the private network.
+-	It provides various information with domain names assigned to each of the participating entities.
+-	It defines the DHCP protocol as part of  the Internet Protocol Suite.
+
+T, F, T, F
 
 
