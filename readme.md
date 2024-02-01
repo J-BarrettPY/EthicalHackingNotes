@@ -753,5 +753,36 @@ Use `--script-help` for help.
 ## Zenmap
 Nmap but with GUI. Use CLI nmap instead tbh.
 
+## Masscan
+Have you ever wanted to just pot scan the entire internet to identify all the web servers that responds (yes)? Of course, if you were going to do that, youd want to do it flat-out, as fast as you possibly can. According to masscan’s developer, Robert Graham, that was essentially the purpose for masscan. At its core, it’s a port scanner. It does some of the same things that nmap does. The difference is that it was developed to go as fast as your system and network connection you have will allow it to go.
+
+Since nmap has become the de facto port scanner and people who are inclided to do port scans know how nmap works, masscan uses the same sorts of command-line parameters as nmap. Port scanning isn’t really fancy, when you come down to it. You tell the port scanner what ports you want to scan and the systems you want to scan. 
+
+Masscan can be used with `--randomize-hosts`, which means that the IP addresses tested would not be in numerical order. Instead, the order will be randomized. The idea behind randomizing hosts is to potentially get around network monitoring tools. If you scan in order, it is fairly clear that a scan is happening. Randomizing scanning makes it a little less obvious what is happening. This may be especially true if you slow the rate down.
+
+Masscan doesn’t just do port scanning, though, even really fast scanning. It can also do some information gathering, much like nmap can. You can request that masscan grab banners. This is done using the `--banners` parameter. 
+
+## MegaPing
+As noted earlier, MegaPing has a number of capabilities, including the ability to run port scans. These are not just run-of-the-mill scans, however. You’ll remember that nmap scans 1,000 ports by default. These are commonly used ports. You can certainly select other ports you want. One thing MegaPing provides us with that we don’t get with nmap is some preselected port collections. One of these is Hostile Ports, which are ports that are commonly misused as well as ports that may commonly be used by Trojan horse programs and other malicious software (malware).
+
+## Metasplot
+While Metasploit is known primarily for being an exploit framework, which you turn to when you want to start exploiting services, meaning you want to get unauthorized access to the service, there are thousands of modules available that are not exclusively about exploiting services. We can use Metasploit for port scanning. Just to give you a sense of the types of port scanning we can do, the following is a list of the modules, at the time of this writing, available in Metasploit. This was obtained using msfconsole, which is one of the ways you can access Metasploit over the command line.
+
+# Knowledge Check
+`masscan` is used to scan the entire internet to identify all of the web servers that respond. It can indicate at what rate users want to scan and perform very fast scans. While `Metasploit` is known primarily for being an exploit framework. It allows users to enter the mind of a hacker and use the same methods for probing and infiltrating networks and servers.
+
+Indicate if each of the given statements about Zenmap is true or fales:
+It is a multi-program, free, and open source application designed to make Nmap easier for beginners to use.
+
+It performs a port scan and saves results in JavaScript Object Notation (JSON) form.
+
+It has been the command-line interface (CLI) version of nmap for years and is suggested as an overlay for nmap.
+It provides various advantages, namely interactive and graphical results viewing, comparison, convenience, discoverability, and so on.
+
+T, F, F, T
+
+
+
+
 
 
