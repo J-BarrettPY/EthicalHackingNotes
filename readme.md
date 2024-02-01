@@ -1,6 +1,5 @@
 # Ethical Hacking
 **CEH Exam Notes from EC-Council**
-
 ## Overview of Ethics
 
 As part of the code of ethics, you will be sworn to keep information you obtain as part of your work private, paying particular attention to protecting the information and intellectual property of employers and clients. 
@@ -686,27 +685,73 @@ T, F, T, F, T
 
 # Flashcards
 What is a Domain Name System (DNS)?: Used to resolved hostnames to IP addresses and vice versa, as well as obtain other information associated with a domain.
-
 What is reconnaissance?: Identifying information about the target before attacking.
-
 What is the Electronic Data Gathering Analysis, and Retrieval (EDGAR) system?: Used to store information about public companies.
-
 What is whois?: A program used to request information about domains and addresses.
-
 What is a regional Internet registry (RIR)?: An organization that manages IP addressing in one of five regions around the world.
-
 What is nslookup?: A utility used to query Domain Name System (DNS) servers.
-
 What is zone transfer?: A Domain Name System (DNS) request to pull all records from a domain.
-
 What is Google hacking?: Using advanced operators to narrow search responses.
-
 What is footprinting?: Identifying the size and scope of the target network.
-
 What is brute force?: Applying a strategy of attempting every possible input to identify the correct one (such as passwords).
-
 What is Internet Corporation for Assigned Names and Numbers (ICANN)?: An organization that assigns names and numbers across the internet.
-
 What is Shodan?: A website that can be used to locate the Internet of Things (IoT) devices around the world.
+
+# Scanning Networks
+# Ping Sweeps
+Rather than blindly throwing attacks at addresses spaces you’ve identified, you may want to identity systems that are responsive within those address spaces. Responsive means that when network messages are sent to them, they provide an appropriate response to the messages. This means you can identity systems that are alive before you start aiming attacks or probes at them. One way of determining system that are alive is to perform a ping sweep. A ping sweep is when you send ping messages to every system on the network. The ping is an ICMP echo request, which is a common message to be sent.
+
+## Using fping
+While there are many tools that can perform a ping sweep, one of the common of is `fping`. This is a tool designed to send ICMP echo requests to multiple systems. Example parameters used with fping are `aeg`, which means fping shows hosts that are alive, shows elapsed time, and generates a list of targets from an address block.
+
+Since the `e` parameter is added to fping, it provies the elapsed time. 
+
+## Using MegaPing
+Another tool that can perform a ping sweep, as well as several other functions, is MegaPing. MegaPing is a GUI-based tool that runs on Windows. It incorporates several functions into a single interface. The ping sweep can be accomplished using the IP Scanner tool, which you would select from the list on the left side. 
+
+# Knowledge Check
+MegaPing: Runs under Windows and incorporates multiple functions into a single interface.
+
+MegaPing: Performs ping sweep using the IP Scanner tool.
+
+Fping: Shows hosts that are alive, shows elapsed time, and generates a list of targets from an address block.
+
+Fping: Sends ICMP echo requests to multiple systems. 
+
+
+# Port Scanning
+A port is a construct within the operating system’s network stack. When an application has network service functionality, it binds to a port, meaning it reserves the port and registers the application to get messages that come in on that port. Any communication received by the system addressed to one of the ports get forwarded to the application that is registered to that port. When there is an application listening on a port, it is considered to be open. Remember that ports exist at the Transport layer, so applications determine whether they are going to use UDP or TCP as the protocol to listen on. 
+
+TCP, as you should know, uses a three-way handshake to initiate connections. To accomplish the handshake, TCP makes use of flag settings, which means there is a set of bits that are enabled or disabled to set or unset the flags. The three-way handshake uses the SYN and ACK flags to complete the connection process. Other flags, such as URG, PSH, and FIN, are used for other purposes, and the RST flag is used to let other systems know to cease communications on the destination port in the received message. Port scanners make use of the known rules in the protocol to make determinations about whether a port is open or not.
+
+Open ports should respond to a SYN message with a SYN/ACK. Closed ports should respond to a SYN message with a RST message.
+
+UDP is another story altogether. There is no defined way of beginning a conversation from the standpoint of the protocol. UDP messages are sent from a client to a server, and its up to the server how it responds. The operating systems network stack has no role other than to pass the message up to the application once the Transport layer headers have been processed. This can be a challenge for port scanners. The reason is that with no defined response, its hard to determine whether a lack of response is because of a closed port or just because the application didn’t receive what it expected. 
+
+Since there is no defined response, port scanners have to make a best guess. If there is no response to a probe message, port scanners don’t assume the port is closed because it may not be. Not only may the application just not have responded, but its possible the UDP message was lost in transmission, since nothing is the protocol ensures that it gets from end to end. Because either is possible, the probe messages will be re-sent. There is a delay of some small period of time between each message. Sending multiple messages with delays between them can cause significant UDP port scans to take quite a  bit more time than a TCP scan.
+
+## NMAP
+The de facto port scanner is `nmap`, short for network mapper. This is a program that has been around since 1997 and has become so commonly used that other port scanners implement the same command-line parameters because they are so well-known. It isn’t just a port scanner; its primary role and other functions are just extensions of the core purpose of nmap.
+
+NMAP can perform UDP scans as well as multiple types of TCP scans when it comes to port scanning. In addition, nmap will detect operating system types, applications, and application versions. Perhaps more significantly, nmap supports running scripts. These scripts allow anyone to extend nmap’s functionality. The scripting engine, powered by the Lua programming language, has modules that scripts can be built on top of to make the job or probing systems much easier.
+
+## TCP Scanning
+As it’s the most detailed and complex type of scanning done, I’ll cover the different types of TCP scans that nmap can perform. First, we know that transport protocols use 2 bytes for the port number in their headers. This means there are 65,536 possible ports (0-65535). Scanning that many ports, especially considering that the vast majority of them aren’t used by listening applications, is very time consuming. To be efficient, nmap will scan only 1,000 ports by default, though you can specify any ports for nmap to scan that you would like. These 1,000 ports are the ones that are most likely to have a listening service.
+
+There are many types of TCP scanning. One of the first ones to look at is the SYN scan. This sometimes called a half-open scan, because connections are left half open. NMAP will send a SYN message to the target. If the port is open, it responds with a SYN/ACK message, and nmap will respond to that with a RST message, indicating it doesn’t want to continue with the connection. If the port is closed, the target system will respond with its own RST message. SYN scan is used by adding the `-sS` parameter.
+
+## UDP Scanning
+UDP scanning is much more straightforward than TCP scanning. There are no options for UDP scanning. NMAP sends out UDP messages and then watches whatever responses may come back. The expectation is that if a port is closed, the system will respond with an ICMP port unreachable message. If a port is open, the service may respond with something or it may just not respond at all. 
+
+## Port Scanning
+Basically download nmap and try it out (lol). 
+
+## Scripting
+Add `--script=[script  name]`
+Use `--script-help` for help.
+
+## Zenmap
+Nmap but with GUI. Use CLI nmap instead tbh.
+
 
 
