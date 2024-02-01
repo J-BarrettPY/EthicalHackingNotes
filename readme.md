@@ -628,4 +628,73 @@ Indicate if each of the given statements about a domain name system is true or f
 
 T, F, T, F
 
+# Passive Reconnaissance
+
+There is a lot of information that can be collected in a passive manner. For example, watching the network headers as they go by, from the layer 3 headers to application headers, can turn up some interesting information. While it can be time-consuming to capture packets and try to read through them manually, there is a program that will do a lot of that work for us. The program is `p0f`, and it will sit and watch network traffic as it presses by interface, making observations as the traffic passes. Unfortunately, p0f isn’t as useful as it once was. The reason for that has nothing to do with p0f but more to do with the face that web servers are generally encrypting traffic by default, which means p0f cant watch the HTTP headers, identifying the server and other useful information.
+
+Very little what you see here is anything you wouldn’t be able to determine yourself if you knew how to read packet headers. The packet capture and analysis program `Wireshark` could provide much of this information. Some of the interesting bits, though, include identifying system uptime. This is the uptime on systems on my local network, so it’s less interesting, perhaps, than it would be if we could so easily identity uptime on remote systems. 
+
+One tool you can use to quickly look up information from your web browser is `Recon`. This is a plugin for web browsers like Firefox and Chrome. When you activate it, a window appears and allows you to search for information quickly. While it isn’t strictly passive reconnaissance, it does give you quick access to tools like whois lookups, Google dorks, and other important searches. 
+
+(I checked out Recon. Its nothing special compared to alternative OSINT tools.)
+
+# Website Intelligence
+
+Starting from the bottom of the stack, we can look at what the web server is as well as the operating system. One way to get some of this information is just to connect to the web server and issue a request to it. In the following code, you can see the HTTP headers returned from a request to a website. While we don’t get the actual web server name, we do get some interesting information (yawn).
+
+There is actually an easier way to do this – use netcraft.com – which will give hosting history for websites. This will provide the owner of the netblock that contains the IP address. It will also tell you the operating system the web server runs on. 
+
+JUST USE NMAP?
+
+Use Wappalyzer extension of Firefox or Chrome. This will provide you lots of information such as server, programming frameworks, ad networks, and tracking technology. (its legit). 
+
+There are other ways you can dig into web pages and the technologies used. One of them is Firebox. Its available on Firefox, though there is also Firebug Lite that’s available for chrome. 
+
+You can mirror websites using stuff like HTTrack. Or you can just write your own code and accomplish the same thing in less than 30 lines lol.
+
+# Technology Intelligence 
+
+## Google Hacking
+
+Google hacking is an important skill to have. It will improve the search response, saving you a lot of time clicking through pages that aren’t especially valuable. The Google hacking techniques will help you to identify technology and vulnerabilities. In addition to Google hacking techniques, there is the Google hacking database, which is a collection of Google dorks that have been identified by someone as a way to search for a number of things. A dork is a string using Google keywords, designed to search for useful responses. 
+
+First, the Google keywords. If you’ve been using search engines for a long time, you may be familiar with the use of quotation marks and Boolean terms to help ensure that you are getting the right strings in your responses. In addition to those, Google uses positional keywords. You may, for instance, want to look only in the URL for a particular string. To search in the URL, you would use `inurl` as in the example, `inurl:index`. This example would find pages that included the word index anywhere in the URL. This might typically be a page like index.html, index.php, or index.jsp. If you wanted to ignore the URL and only search in the text, you could use the keyword `intext`.
+
+Since you are working for an organization, you have one domain or maybe a small handful of domains. This means you will, at some point, want to search only within those domains. To do that, you can use the `site` keyword. You may also want to limit your results to a single filetype, such as a portable document format (PDF) file or a spreadsheet. To limit your results to just on filetype, you would use the `filetype` keyword.
+
+A great place to look for examples of useful Google dorks is the Google Hacking Database (exploit-db.com). The Google Hacking Database (GHDB) stores search terms in several categories, including footholds, vulnerable files, error messages, and sensitive directories. Creating these useful search strings requires that you know not only about the Google hacking keywords but also about what you are looking for.
+
+Spending time at the GHDB can provide you with a lot of ammunition for looking for possible issues within your target. Some of this will be blind, if you have no idea what to expect within your target. To make sure you are only searching within your target, of course, you would need to add site: and the domain name to your search parameters.
+
+## Internet of Things (IoT)
+The IoT is made up of devices that may have little tot no input or output capabilities, at least from a traditional standpoint. If a device can run general applications and also has a keyboard and a screen, such as a computer, tablet, or smartphone, its not part of the IoT. Many other devices, like network-connected thermostats, light bulbs, fans, refrigerators, and a number of other essentially single-purpose devices, are IoT devices. 
+
+These devices can be useful when it comes to infiltrating a system. Malware like Satori can infect multiple IoT devices, and once infected, those devices can be used to attack other systems. They may also be good starting points into the enterprise network, depending on the device. This is another area where search engines, though, can be helpful to us. Shodan (www.shodan.io) is a search engine specifically for IoT devices. Shodan keeps track of a large number of devices along with vendors, device types, and capabilities.
+
+Shodan also requires understanding your target and what can be used to identity these devices. 
+
+# Knowledge Check
+Indicate if each of the given statements about Google hacking is true or false:
+
+-	It improves the search responses, saving users a lot of time clicking through pages that aren’t especially valuable.
+-	It is used to identify security vulnerabilities in non-web-based applications and gather information for collective targets. 
+-	It discovers error messages disclosing sensitive information and files containing credentials. 
+-	It includes GHDB, which is a collection of Google APIs identified by someone as a way to search for several things.
+-	A dork is a string using Google keywords designed to search for useful responses.
+
+T, F, T, F, T
+
+# Flashcards
+What is a Domain Name System (DNS)?: Used to resolved hostnames to IP addresses and vice versa, as well as obtain other information associated with a domain.
+What is reconnaissance?: Identifying information about the target before attacking.
+What is the Electronic Data Gathering Analysis, and Retrieval (EDGAR) system?: Used to store information about public companies.
+What is whois?: A program used to request information about domains and addresses.
+What is a regional Internet registry (RIR)?: An organization that manages IP addressing in one of five regions around the world.
+What is nslookup?: A utility used to query Domain Name System (DNS) servers.
+What is zone transfer?: A Domain Name System (DNS) request to pull all records from a domain.
+What is Google hacking?: Using advanced operators to narrow search responses.
+What is footprinting?: Identifying the size and scope of the target network.
+What is brute force?: Applying a strategy of attempting every possible input to identify the correct one (such as passwords).
+What is Internet Corporation for Assigned Names and Numbers (ICANN)?: An organization that assigns names and numbers across the internet.
+What is Shodan?: A website that can be used to locate the Internet of Things (IoT) devices around the world.
 
