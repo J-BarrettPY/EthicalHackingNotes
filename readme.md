@@ -686,15 +686,27 @@ T, F, T, F, T
 
 # Flashcards
 What is a Domain Name System (DNS)?: Used to resolved hostnames to IP addresses and vice versa, as well as obtain other information associated with a domain.
+
 What is reconnaissance?: Identifying information about the target before attacking.
+
 What is the Electronic Data Gathering Analysis, and Retrieval (EDGAR) system?: Used to store information about public companies.
+
 What is whois?: A program used to request information about domains and addresses.
+
 What is a regional Internet registry (RIR)?: An organization that manages IP addressing in one of five regions around the world.
+
 What is nslookup?: A utility used to query Domain Name System (DNS) servers.
+
 What is zone transfer?: A Domain Name System (DNS) request to pull all records from a domain.
+
 What is Google hacking?: Using advanced operators to narrow search responses.
+
 What is footprinting?: Identifying the size and scope of the target network.
+
 What is brute force?: Applying a strategy of attempting every possible input to identify the correct one (such as passwords).
+
 What is Internet Corporation for Assigned Names and Numbers (ICANN)?: An organization that assigns names and numbers across the internet.
+
 What is Shodan?: A website that can be used to locate the Internet of Things (IoT) devices around the world.
+
 
