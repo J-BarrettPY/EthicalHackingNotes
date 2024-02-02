@@ -781,6 +781,121 @@ It provides various advantages, namely interactive and graphical results viewing
 
 T, F, F, T
 
+# Vulnerability Scanning
+You can start hunting and pecking at ports after doing a lot of research about vulnerabilities that may exist within those applications. You could also just find a lot of exploits and start throwing them at the applications on the open ports. This may be a simple way of checking to see if there are vulnerabilities. You just check all the exploits you can find against your target. There are a few issues with that approach, however. The first is that you may end up causing failures on your target systems where you may not mean to. Blind testing can lead to unexpected results, and one of your objectives, from an ethical standpoint, is to cause no harm.
+
+It wouldn’t be very professional to tell your client that you’re just going to throw a lot of exploits at their system without any idea what the impact would be and that they may experience outages as a result. Your job is to control your testing – to be knowledgeable about what you are doing and what the possible outcomes are.
+
+Another issue is that if you are engaged in a red team test where the target has no idea you are running attacks, you want to be sure they don’t detect you, or at least you want to do everything you can to avoid detection. Blindly running a lot of exploits against a lot of systems, including systems that may not even have the application that’s vulnerable, is going to be noisy, and if there is any detection capability, you will be caught. That means you will have failed. 
+
+A better approach is to use a vulnerability scanner, which takes an intelligent approach to identifying potential vulnerabilities. A vulnerability scanner will identify open ports and listening applications and then determine what vulnerabilities may be possible based on those applications. The scanner will then run tests that have been defined for those vulnerabilities. The objective of a scanner is not to compromise a system; it is just to identify potential vulnerabilities.
+
+This does not guarantee that what the scanner has identified is an exploitable vulnerability. It means that the scanner has found something it believes is a vulnerability based on interactions with the target system as compared with data the vulnerability scanner has. This is called a false positive. Any issues found by a vulnerability scanners needs to be verified manually. 
+
+False Positive: The scanner has identified something it believes to be a vulnerability. After investigation, it turns out its not really a vulnerability. 
+
+False Negative: The scanner has not identified a vulnerability. It later turns out that there was a vulnerability that the scanner missed.
+
+True Positive: The scanner has identified a vulnerability that, after manual investigation, turns out to be a legitimate vulnerability. 
+
+Ture Negative: The scanner has not identified a vulnerability, and there is not a vulnerability to identify.
+
+The first vulnerability scanner was created in the 1990s by Dan Farmer and Wietse Veneema, known as Security Analysis Tool for Auditing Networks (SATAN).
+
+## OpenVAS
+SATAN was open source, meaning you could look at everything SATAN was doing and, if you felt like it, extend its functionality by adding modules yourself. 
+
+Another opensource vulnerability scanner  in the early 2000s was Nessus. It was initially released in 1998 as a freely available vulnerability scanner and remained so until 2005 when the company, formed three years before, closed the source code, making all future development proprietary to the company. The existing source code for version 2 was open, however, and two separate projects were created, where the Nessus code for version 2, abandoned by the Nessus developers, was forked to create a basis for the new projects.
+
+One of these forks was the Open Vulnerability Assessment System (OpenVAS). Initially, OpenVAS was the same as Nessus, as you’d expect. Over time, OpenVAS developed its own application architecture, using multiple tiers that Nessus hadn’t explicitly used. Nessus initially had a native application client to manage the scans, and OpenVAS continued to use the same native application. OpenVAS developed the Greenbone Security Assistant (GSA) as the user interface for OpenVAS. Today GSA is accessed through a web interface.
+
+OpenVAS allows you to have multiple users, each of which may have different permissions. Some users may be able to create scans, while others may only be able to look at the scan results. Other users would be able to create users and administer the OpenVAS installation. In addition to users, OpenVAS supports roles. Permissions within the rooles can be altered, and now roles can be created. When you install OpenVAS, the admin user is created as part of the setup process, and a random password is generated.
+
+## Setting Up Targets in OpenVAS
+A scan in OpenVAS has many components. When you create a scan, you need a target or set of targets. Creating a target also requires some information. You need the set of IP addresses you want to run tests on. You can also exclude addresses from the set you are testing. You may do this to provide a network block in your target list, but you may also have fragile systems in the network block. Because of that, you may want to tell OpenVAS not to test that address.
+
+One thing a vulnerability scanner like OpenVAS does is scan ports to determine which ones it should be focusing testing on. You can determine the range of ports you want to test. This can limit the amount of testing you do if you care only about testing against particular services. 
+
+## Scan Configs in OpenVAS
+The core of a scan is in the scan config. The scan config is the definition of what plugins are tested against the target. By default, there are eight scan configs defined in OpenVAS. You can see the number of network vulnerability tests (NVTs) that have been enabled in each config. The NVTs are categorized into families for organizational purposes. You can enable the entire family or just enable individual NVTs as you need to. 
+
+## Scan Tasks
+Scan configs are targets are necessary to create a scan task. You’ll be able to create the target as part of creating a scan task, and it will persist just as if you had gone to the target configuration separately. The scan config, though, has to be done ahead of time unless you want to use one of the prepackaged scan configs. 
+
+## Nessus
+Nessus is the parent of OpenVAS, which makes it worth looking at, especially to see how it has diverged from the path OpenVAS took. When you log in, youre taken to your list of scans, which will be empty at first. To start a scan, you would click the New button, which will take you to a list of the different scan policies that are available.
+
+Like OpenVAS, Nessus uses Network Attack Scripting Language (NASL) scripts. They are stored with the rest of the Nessus installation. On Windows, the installation would be in the Program Files directory. On Linux, the files are stored in `/opt/nessus` with the plugins in `/opt/nessus/lib/plugins`. 
+
+## Looking for Vulnerabilities with Metasploit
+One example of a vulnerability scanner metaploit has is a module called Eternal Blue vulnerability. This is a vulnerability in the implementation of the Server Message Block (SMB) protocol that was discovered by the National Security Agency (NSA), which developed an exploit for it, which was released without the NSA’s approval by a group called the Shadow Brokers.
+
+There are a large number of scanners available in Metasploit. Not all the scanners are directly related to the vulnerabilities. Search for the word ‘scanner’ in Metasploit will return around 619 results.
+
+# Knowledge Check
+
+True Positive: A legitimate attack that triggers to produce an alarm.
+
+False Negative: No alarm is raised when an attack has taken place.
+
+True Negative: An event when no attack has taken place and no detection has been made.
+
+False Positive: An event signaling to produce an alarm when no attack has taken place.
+
+# Packet Crafting and Manipulation
+When you are sending data out over the network, there is a clear path it follows before exiting the network interface on your system. We’ve gone over this to a degree by talking about the Open Systems Interconnection (OSI) model. Let’s say that you are visiting a web page. You enter a URL into the address bar. Your browser takes the input and creates the HTTP request headers that are needed to send to the server. For simplicity, we’ll skip the encryption pieces and just talk about how the complete packet is put together.
+
+The application makes a request of the operating system to open a connection to the server. This triggers the operating system to build a packet using information provided by the application. This includes the hostname or IP address as well as the port number. Unless otherwise provided, the port number will default to either 80 or 443, depending on whether the communication is HTTPS or HTTP. This information will allow the operating system to create the necessary headers for both TCP and IP, layers 4 and 3.
+
+
+All of this is to say that the application initiates requests based on interaction from the user. It follows a clear path, and the information placed into the necessary headers for each protocol in coherent and easily traced back to the original source of the information. Sometimes though, you may need to send data that doesn’t follow a coherent path. It could be that you need to manipulate headers with data that wouldn’t normally be found in the header fields. Each header field is known size and is binary, which means you aren’t going to be sending a character instead if a number, for instance. Nothing in the network headers, looking at layers 4 and below for sure is data that would go through an ASCII decode to be converted to character data.
+
+There are a number of tools that can be used to craft or otherwise manipulate the header data. Some of these are designed for the sole purpose of creating packets that would look the way you want them to look. This may be a tool like packETH,which uses a GUI to let you set the fields. Others have other purposes that allow you to interact with the target system in a way that you may not otherwise be able to do without writing your own program. A tool like `hping` will let you build a packet based on the command-line parameters. Using a tool like hping, you could assess the response from the system. Finally, you may want to mangle the packet using a set of rules, which would put the operating system’s network stack to the test, to see if it can handle poorly constructed packets.
+
+## HPING
+The program `hping` is considered by the developer to be the Swiss Army knife of TCP/IP packets. You could use it as a straightforward ping program, sending ICMP echo requests. Since hping is primarily a packet crafting program, allowing you to initiate connections using different protocols with the header settings you want, the default mode may not work well for you. By default, if you don’t specify anything other than the target host or IP address, hping will send messages to port 0 on your targe with a varying source address. Address 0 is essentially an invalid destination since it is considered reserved and has no purpose. You shouldn’t get any response from the system you are sending traffic to. If you do, the target host is really violating the protocol. While hping uses TCP for this port 0 is invalid for both UDP and TCP.
+
+While you can use hping as a replacement for the ping program, by calling it with the -1 parameter, meaning you are using ICMP mode, you can also create connections to specific ports.  You will get the same behavior you would get with the ping program, meaning you will be getting thee “aliveness” of the system and the round-trip time. You will get something even more detailed, though, since you will know whether a particular service is up and running. This may be useful if you are doing testing against an application. You want to know when the service fails. You will get a lot of detail from the response in addition to the round-trip time. 
+
+`hping` will provide you with all the flags that are set in the response. This includes the SYN and ACK flags as well as thee don’t fragment bit, indicated by the DF in the response. 
+
+In addition to ICMP and TCP, you can send UDP messages. There are fewer paramets used to send UDP messages because of the limited number of options available in the UDP headers. We can, though, use `hping` to perform a port scan. We can scan a range of UDP ports by using the `--scan` (or -8) parameter. 
+
+## PackETH
+Where hping used command-line parameters, packETH takes a GUI approach to being able to set all the parameters. The sets of headers vary, depending on the protocols selected, and each of the lower-layer headers indicate the next protocol, meaning the next set of headers. When you select which protocols you are using, packETH will adjust to provide all of the header fields for the protocol you have selected. You will also see where IP is selected as the next protocol in the layer 2 header. You cant see the layer 2 header in this screen capture, but you would be able to set addresses, determine what version of the layer 2 protocol you are using, and also add in 802.1q fields, which provides a tag field to indicate which virtual LAN (VLAN) the frame should be on.
+
+While you can create packets following known and understood fields, you can also create your own packets. Your layer 2 headers have to be set with MAC addresses in the source and destination so there is somewhere for the frame to go, but beyond that, you can do whatever you like by selecting User defined payload in figure. 
+
+## Fragroute
+`fragroute` is a program used to mangle packets before they are sent to a target you specify. It works by making adjustments to the routing table so all messages going to the target are sent through the fragroute application first. To make fragroute work, you need to create a configuration file. This configuration file has directtives telling fragroute how to handle packets that pass through the application. In the following code listing, you can see a configuration file with a handful of directives that are guaranteed to create really messed-up network traffic.
+
+The directives here tell fragroute to do a number of things to packets. The first thing is to delay random packets by 1 millisecond. Next, there is a 30 percent chance of duplicating the last packet. The `ip_chaff` line adds duplicate packets into the queue. When messages are sent out, they have a maximum transmission unit (MTU) size that is dictated by the data link protocols. 
+
+# Knowledge Check
+PackETH: Allows user to adjust to provide all the header fields for the protocol they have selected.
+
+Hping: Allows users to initiate connections using different protocols with the header settings they want.
+
+Fragroute: Used to deform packets before they are sent to a specified target.
+
+# Evasion Techniques 
+Common evasion techniques:
+-	Hide/Obscure the Data: You could use encryption or obfuscation to disguise what you are doing. Encrypted traffic cant be investigated without violating the end-to-end nature of encryption. The goal with encryption is that the message is encrypted from the sender to the recipient, without being decrypted at waypoints in between. You could also encode the data using various encoding techniques. Including URL encoding, which replaces characters with the hexadecimal value of their ASCII code. 
+-	Alterations: Intrusion detection/protection systems in particular will often use something called a signature. In the case of malware, this may be a cryptographic hash value that can be compared against a database of known malware. If there is a match of the hash, the messages can get dropped. When it comes to a cryptographic hash, though, the change of a single character in the file contents will field a completely different hash value, meaning whatever you are doing wont get detected. This strategy is commonly called polymorphisms, from polymorph, meaning many shapes or forms.
+-	Fragmentation: Fragmentation attacks can be used to evade network security mechanism simply because these devices, when they are inline, would take time to reassemble the message before the adversarial activity would be seen. You can use a tool like fragroute to help with fragmentation.
+-	Overlaps: When messages are fragmented, it may happen at either the Network layer or the Transport layer, as you saw from looking at fragroute. When the messages need to be reassembled, all of the pieces need to be there and in a sane state so the puzzle can be fit back together. When using TCP, you can overlap sequence numbers.
+-	Malformed Data: Protocols are sets of rules about how communications are expected to happen. If you violate those rules, you can get unexpected results. Even if you aren’t violating the rules but instead are taking advantage of loopholes, you can get some useful data. This is why nmap uses Xmas, FIN, and NUL scans. The behavior is unexpected, though not technically illegal from the standpoint of the protocol. 
+-	Low and Slow: Fast scans can be easy to detect. Harder to detect are scans that are taking place over a long time frame.
+-	Resource Consumption: It may be possible to get devices to fail open by consuming resources such as CPU or memory. 
+-	Screen Blindness: In the case of IDS, the device or software will issue alerts. It is expected there will be someone looking at those alerts. If you can generate enormous volumes of alerts from traffic youdon’tt care about, you can cause they people looking at the alerts to go screen blind, meaning they just aren’t seeing the important details anymore because they are overwhelmed by what they are looking for.
+-	Tunneling: A tunnel is a way of transmitting data inside something else. For example, the Generic Routing Encapsulation (GRE) protocol can create a  tunnel by taking packets and encapsulating them inside GRE packets. This makes it look like what is passing through is a GRE packet when there is really something in the payload.
+## Evasion with nmap
+Nmap has its own evasion built in, to a degree. This would be in regards to `-t` scans and how hardcore the scan goes.
+
+You can also “blind” the defender to use a number of decoys by generating a lot of bogus traffic alongside the port can you actually care about. You do this by passing the `-D` flag.
+
+You can use `--spoof-mac` followed by a MAC address or by a vendor to spoofy a mac address.
+
 
 
 
