@@ -896,6 +896,113 @@ You can also “blind” the defender to use a number of decoys by generating a 
 
 You can use `--spoof-mac` followed by a MAC address or by a vendor to spoofy a mac address.
 
+# Flashcards
+What is a vulnerability?: A weakness in a piece of software or a configuration that could lead to exposure or exploitation.
+
+What is ping sweep?: Using Internet Control Message Protocol (ICMP) echo requests to identify all responding hosts on a network.
+
+What is port scanning?: Identifying open ports on target hosts.
+
+What is nmap?: A utility used to scan for open ports.
+
+What is thee SYN scan?: A port scanning technique targeting Transmission Control Protocol (TCP) ports by sending the SYN request.
+
+What is Nessus?: A vulnerability scanner utilizing plug-ins, which are separate files, to handle the vulnerability checks.
+
+What is evasion?: A technique of performing an action like port scanning in a way to avoid detection.
+
+What is tunneling?: Encapsulating data inside of another protocol to get it from one endpoint to another.
+
+What is an XMAS scan?: A method of port scanning that sends the FIN, PSH, and URG flags in a Transmission Control Protocol (TCP) header.
+
+What is the Open Vulnerability Assessment System (OpenVAS)?: A vulnerability scanner forked from Nessus.
+
+What is hping?: A utility used to craft a packet on the command line.
+
+What is packet crafting?: Generating a packet that has fields set in a way specified by the attacker, which may include a payload in addition to headers.
+
+What is MegaPing?: A tool that runs on Windows that can perform a number of reconnaissance tasks.
+
+# Searching for Exploits 
+
+`exploit-db.com`
+
+Kali Linux has a repository of exploits available as well as a tool that can be used to search the repository from the command line.
+
+Finding Exploits with `searchsploit`
+Example, to search for exploits on OpenSSH, you could type:
+```
+searchsploit openssh
+```
+
+# System Compromise 
+
+## Metasploit Modules
+
+If there is a known exploit for a vulnerability available, it has likely found its way into Metasploit. This is a program that was originally developed as an exploit framework. The idea was to provide building blocks so exploits could quickly be developed by putting together a set of programming modules that could be used. Additionally, shellcodes and encoders are available to put into exploits being developed. 
+
+Almost the entire lifecycle of a penetration test can be handled within Metasploit. As of the moment of this writing, there are more than 1,000 auxiliary modules, many of which are scanners that can be used for reconnaissance and enumeration. Using these modules, you can learn what the network looks like and what services are available. You can also import vulnerability scans from OpenVAS, Nessus, and of course, Nexpose, which is developed by the same company that is responsible for Metasploit. Once you have all of this information, though, you want to move to exploitation. There are currently over 2,200 exploit modules in Metasploit, though the number changes fairly regularly because of the popularity of the software and the development work by Rapid 7.
+
+We’re going to start with `msfconsole` program in Kali Linux, which Metasploit is installed by default. You do need to set up the database that is used to store information about hosts, vulnerabilities, and any loot acquired. Below you can see starting up `msfconsole`, which is the command-line program used to interact with Metasploit.
+
+```
+Sudo msfconsole
+```
+
+Once `msfconsole` is started, we need to locate an exploit for a vulnerability that has been identified. To find an exploit, you simply search for it:
+
+```
+search eternalblue
+```
+
+There is more than one that we could use here, depending on what we want to accomplish. In this case, I want to get a shell on the remote system; the auxiliary module will allow us to execute a single command on the remote system, which would be the same as the one ending in `pseexec`. As a result, we’re going to use the exploit ending in `010_eternalblue`. This will give us a shell on the remote host. From that shell, we can start issuing commands, but more than just one, which the others would let us do.
+
+Once we know what module we are using, we load it up using the `use` command in the `msfconsole`. Each module has a set of options that can or needs to be set. In some cases, the options will have defaults already set so you don’t need to do anything. The one parameter that will always need to be set is the one for the target. This will either `RHOST` or `RHOSTS`, depending on whether the module expects to have multiple targets. A scanner module, for example, will use `RHOSTS`, while an exploit module will generally have `RHOST` as the parameter name. 
+
+
+## Exploit-DB
+You can search `exploit-db.com` for exploits associated with vulnerabilities.
+
+
+# Gathering Passwords
+
+Once you have an exploited system, you will want to start gathering information on it. One type of information is the passwords on the system. There are a couple of ways to gather these passwords. In the preceding code listing, we got a Meterpreter shell on a target system. Using Meterpreter, we can gather information about the system so we know what we’re getting from password data. The command `sysinfo` will tell us the system name as well as the operating system. This tells us were going to be looking at LAN Manager hashes when we grab the passwords. We can do that using the `hashdump` command.  
+
+The hashdump provides the username, the user identifier, and the hash value of the password. We’ll need that when it comes to cracking the password. 
+
+This is not the only way we can grab password hashes. There is a module named `mimikatz` that can bee used. 
+
+When we compromise a Linux system, we can’t use hashdump, but we still want to grab the passwords. Either we can get a shell directory from an exploit, or if we use a Meterpreter payload, we can drop to a shell. This is where we’d be able to access the passwords. In the following code, you can see dropping thee shell from Meterpreter. From there, we can just use `cat` to print the contents of the `etc/shadow` file. We do need to have root access to see  the contents of the shadow file. You can see by running `whoami`.
+
+## Password Cracking
+
+## John the Ripper
+Offline password cracking tool. Can use wordlists. Incremental mode to try every possible combination of characters.
+
+## Rainbow Tables
+Rainbow tables are stored precomputed hashes. The rainbow table isn’t as straightforward as just a mapping between a hash and a password. The rainbow tables are stored in chains in order to limit the number of plaintext passwords stored. In some cases, the plain text can be inferred if it is not stored directly. There are many tools that can be used to look up passwords from these tables, but first we need the tables. The Rainbow Crack project has a tool to look up the password as well as a tool that will create the rainbow table. This creation tool isn’t used to generate hashes from wordlists. Instead, it will generate a hash from all possible password values within the constraints provided. 
+
+## Kerberoasting
+Kerberoasting is another type of password cracking attack that relies on getting access to a network. The name is based on the face that Active Directory authentication over a network uses a protocol called Kerberos. Kerberos, in turn, is named for the three-headed dog of Greek mythology who guarded the gates of the Underworld to prevent those there from leaving. 
+
+To perform a Kerberoasting attack, you need to have compromised an account on the domain. The compromised user account will receive a TGT from the KDC when they are authenticated. This has been signed by the Kerberos ticket-granting ticket service account that is part of the AD design. The attacker, who has control of the compromised user account, wants to compromise a service on the network. They will request a service ticket for that service. A domain controller with the Active Directory infrastructure will create a TGS ticket, encrypting it with the service password, retrieved from the AD database. The only two entities that have the password that could decrypt the message at this point are the domain controller and the service itself.
+
+The domain controller sends the ticket to the user, which is under the control of an attacker. The ticket gets sent to the service, which decrypts it to determine whether the user has been granted permission to the service. This ticket is in memory and can be extracted from there so it can be decrypted (or cracked) offline.
+
+# Knowledge Check
+-	Rainbow Table – Includes a collection of chains, where each chain is 16 bytes.
+-	John the Ripper – Includes various password crackers into one package, auto-detects password hash types, and includes a customizable cracker.
+-	Rainbow Tables – Makes use of the stored precomputed hashes.
+-	John the Ripper – Supports both brute force and dictionary attacks.
+
+# Living Off the Land
+Making use of tools that are already available on the target system, such as PowerShell cmdlets.
+
+-	Empire is a post-exploitation framework written in PowerShell, meaning this is a set of tools you would use after you have already exploited a system. Empire appears to no longer be support, though you can still grab the source code for it.
+-	PowerSploit, another tool which is no longer actively maintained, also provides a number of cmdlets that include functions for code execution. 
+-	Learn PowerShell noob.
+
+
 
 
 
