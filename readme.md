@@ -1003,7 +1003,71 @@ Making use of tools that are already available on the target system, such as Pow
 -	Learn PowerShell noob.
 
 
+# Malware
 
+# Malware Types
+
+## Virus
+
+Not all malware is a virus, but all computer viruses are malware. A virus require user intervention to infect a system. The user has to do something to execute the virus. Once that happens, the virus will infect the system, possibly by injecting code into other programs, so when those programs run, the virus still retains control of the infected system.
+
+A computer virus is said to have the same phases that a biological virus has. Viruses have dormant phases, where they are inactive, waiting for a trigger. The triggering phase is when the virus has been trigged by a user action or some other defined event. 
+
+Viruses that wait for a specific time are sometimes called logic bombs. 
+
+A virus may be memory resident. This means that when it infects a system, it remains in memory. This commonly means that it installs itself as part of the operating system, which means it loads into memory when the system boots and remains there until it shuts down. As they are always running, memory-resident viruses can scan, infect, and reinfect as needed. If it is nonresident, the virus has to be executed. 
+
+One nonresident type of virus is a macro virus. This is one that executes as a script as part of a document. Word documents, for example, can include macros, which are short scripts that launch and are executed when the document is opened. This virus could be spread by attaching to the macro and then just sending the document around. Many other document formats support script execution, including the Portable Document Format (PDF), and all can be prone to this sort of virus. 
+
+## Worm
+
+A worm gets launched initially and all subsequent infections are a result of the worm moving from one system to another on its own. This is called self-propagation.
+
+The important thing to keep in mind is that a worm propels itself. It doesn’t require any assistance from the user. This means that it has a way of connecting to remote systems and executing itself on those systems. This is likely a result of a network-facing vulnerability. 
+
+Worm do not necessarily have to be executables. There have been worms that make use of email programs and contact lists to propagate. You may have an HTML email that has script embedded in it. Once the email client renders the HTML, it runs the script, and the script makes use of a vulnerability or some other poorly configured mechanism in the email client. The worm accesses the contact list and sends a copy of itself to everyone in the contact list. This also leads to the potential for reinfection where the malware may have been identified and removed. 
+
+## Trojan
+
+Trojans appear to be something legitimate, but is actually malware, usually a virus. The idea is to trick users into running the software. It could be considered a type of social engineering. 
+
+## Botnet
+
+A botnet can be part of the payload of a virus or a worm and could also be installed by a Trojan horse. When you hear the word botnet, its really referring to a botnet client that is being installed. The botnet is the entire collection of endpoints that have been infected with a particular family of malware. The botnet client is a small piece of software whose purpose is to connect back to command-and-control infrastructure (C&C or C2).
+
+Some modern botnets use a decentralized model for managing the botnet. Rather than a client -server model, where the bot herder controls the entire network from the top, the decentralized botnet is entirely peer-to-peer. Messages may be sent from one endpoint directly to one another. All routing is done within the botnet, much like other peer-to-peer networks. The bot herder is still in control, but there is no infrastructure network to take down.
+
+## Ransomware 
+
+The goal of ransomware is to extort money from a victim. Ransomware is a program that encrypts a portion of a victim’s hard drive, where personal files are stored. In some cases, it may be important business documents. 
+
+In recent years, ransomware has been on the rise. Attackers have discovered that its far more efficient to just demand money from victims than trying to steal information and utilize it.  Traditionally, threat groups have fallen into three categories:
+-	Intelligence-Drive Groups: Sometimes this group is referred to as nation states. These are groups that are looking for information such as intellectual property from companies. This intellectual property is used to enhance the market capabilities of state-sponsored businesses.
+-	Criminal Organizations: These are groups that are only in it for the money. They are businesses with employees and working hours. These employees may have roles and responsibilities just like you would in a job you had.
+-	Hacktivists: There are people who are just trying to make waves. They have a point to make and will do a lot of different things to make it. This may be defacing web pages or performing distributed denial of service attacks.
+
+## Dropper
+A dropper is a type of malware that doesn’t commonly come alone. The dropper is used as a starting point. Once it is installed on your system, it starts grabbing other software to install. This may include backdoors, key loggers, botnet clients, Trojans, or other software that is useful to the attacker. 
+
+## Fileless Malware
+Typically, malware exists in files on disk. Perhaps the victim visits a website that is hosting malware embedded in the website pages. The malware then executes on the victim computer, leaving files behind that can be detected. Anti-malware programs often do file scanning as a way of detecting the malware to eradicate it. Malware developers recognize the threat posed by anti-malware programs. They may use different techniques to ensure the malware isn’t detected. One of these techniques is to never leave any artifacts on the file system. This results in something called fileless malware.
+
+Fileless malware can make detection more challenging since there is no file that can be compared to a signature in anti-malware programs. It requires the detection of behaviors on the victim system, rather than file-based signatures. 
+
+Persistence becomes a problem with fileless malware, since there is nothing that can be executed using a common startup process. However, there are ways to never write the malware to disk. One of these is to embed a PowerShell script into the Windows Registry and use that PowerShell script to pull other malware onto the victim server, executing it directly into memory. Additionally, the PowerShell script can make use of existing tools on the system to interact with the network for lateral movement. 
+
+## Polymorphic Malware
+
+Anti-malware software often uses signatures to identify malicious software. This could be something like cryptographic hash. Every instance of the file will generate the same cryptographic hash, no matter what system it is on, which makes it a reliable indicator of whether a file is malicious or not. This mean systems with up-to-date anti-malware databases will have the malware detected and removed. It is beneficial for the malware to not have the same cryptographic hash for every instance, so it doesn’t get detected and removed from the system. Custom or targeted malware may be compiled specifically for a target to ensure it looks different to the anti-malware software.
+
+# Knowledge Check
+
+-	Ransomware: Restricts access to a users device or its data until the victim pays the attacker to remove the restriction. 
+-	Worm: Spreads from one device to another on its own, not by attaching itself to another file.
+-	Dropper: Includes backdoors, key loggers, botnet clients, Trojans, or other software useful to the attacker.
+-	Virus: Infects a target computer when an executable file is run.
+-	Trojan horse: Downloads onto a computer disguised as a legitimate program.
+-	Botnet: Includes a collection of endpoints that have been infected with a particular family of malware. 
 
 
 
