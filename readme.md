@@ -1069,6 +1069,102 @@ Anti-malware software often uses signatures to identify malicious software. This
 -	Trojan horse: Downloads onto a computer disguised as a legitimate program.
 -	Botnet: Includes a collection of endpoints that have been infected with a particular family of malware. 
 
+# Sniffing
+
+# Packet Capture
+
+-	Process of acquiring network traffic that is addressed to systems other than your own.
+-	Headers are the fields that are specific to the protocol. The provide instructions for how the protocol should behave.
+-	Data that is being carried from one endpoint to another is called the payload.
+-	Wireshark helps to make packet analysis much easier.
+
+## tcpdump
+
+-	Displays packet information on UNIX systems.
+-	Default settings display IP header information.
+
+## tshark
+
+-	Included with Wireshark.
+-	Similar to tcpdump.
+
+## Wireshark
+
+-	GUI based packet capture program.
+-	Can view entire network stack in Wireshark.
+-	Provides more details in the summary.
+-	Doesn’t just give you a list of frames so you can see who was communicating with what but also provides full protocol decodes.
+-	Supports filtering.
+
+## Berkeley Packet Filter
+
+-	Interface to the Data Link layer of a system.
+-	Used across many systems and applications, including tcpdump, tshark, and Wireshark.
+
+## Port Mirroring/Spanning
+-	Any traffic that passes through one port would be mirrored to another report.
+
+# Knowledge Check
+
+-	Wireshark: A GUI-based packet capture program that provides a way to view the packets easily, moving around the complete capture.
+-	tcpdump: A command-line program used to capture traffic and store that traffic in a file that can be opened later on.
+-	Port mirroring: An approach to monitoring network traffic that involves forwarding a copy of each packet from one network switch to another.
+-	tshark: A network protocol analyzer that capture packet data from a live network, or read packets from a previously saved capture file.
+-	BPF: An interface to the Data Link layer of a system and consists of several primitives like host, ether, net, and proto.
+
+# Detecting Sniffers
+
+-	Look on the system that has the interface in promiscuous mode.
+-	You will see PROMISC – this indicates the interface is in promiscuous mode, which means the interface is not doing any filtering of MAC addresses.
+# Packet Analysis
+
+# Knowledge Check
+
+Indicate if each of the given statements about packet analysis is true or fales:
+
+-	True: It uses a packet analyzer to intercept and log traffic that passes over a digital network or part of a network.
+-	False: Expoit-DB is a very good packet analyzer that determines the information that isn’t directly provided.
+-	False: Wireshark provides expert information that you can look at all at once from the View menu.
+-	True: Wireshark can color frames where it identifies problems in the frame list based on rule sets.
+
+# Spoofing Attacks 
+
+-	Pretending to be a system that you aren’t. 
+-	Spoofing attacks allow you to sit in the middle of a conversation between two endpoints.
+
+## ARP Spoofing
+
+-	Address Resolution Protocol has two stages. The first is the request, where a system knows an IP address but doesn’t know the corresponding MAC address. It sends an ARP request asking for the system with the IP address to respond with its MAC address.
+-	In theory, anyone could respond to that request with their MAC address to get the requesting system to send the message to the attacker’s address.
+-	Can make it even simpler by not waiting for the request to begin and just sending the reply.
+## ARP Poisoning 
+
+-	Same thing has ARP spoofing. You are poisoning the ARP cache on target systems with bad entires.
+
+## DNS Spoofing
+
+-	More targeted than an ARP spoofing.
+-	Aren’t looking to capture traffic necessarily, instead we are looking tog et a target to come to systems under our controls for specific requests. 
+-	Accomplished by intercepting DNS requests and providing responses to the requestor. 
+-	Instead of providing legitimate responses, the attacker will use their own addresses.
+-	Redirects to an IP address the attacker set up.
+
+## Ettercap
+
+Tool that can be used to capture requests, like DNS requests. 
+
+## DHCP Starvation Attack
+-	Attacker sends many DHCPDISCOVER messages to a DHCP server.
+-	These messages are sent to the broadcast address 255.255.255.255. 
+-	The DHCP server responds with an offer to the client. In this case, the server will keep sending offers, reserving the IP address for that client, expecting an acknowledgement that never comes.
+-	At some point, the DHCP server runs out of IP addresses to provide to any legitimate endpoint (DoS).
+
+## sslstrip 
+
+-	Developed to grab SSL messages and trip the encryption from them. 
+-	Outdated lol..
+
+
 
 
 
