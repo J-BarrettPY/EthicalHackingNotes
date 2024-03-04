@@ -1164,6 +1164,15 @@ Tool that can be used to capture requests, like DNS requests.
 -	Developed to grab SSL messages and trip the encryption from them. 
 -	Outdated lol..
 
+# Social Engineering
+-	Reciprocity: People will generally feel like they want to or may be obliged to respond to a kindness or favor. You may feel this way if a company gives away free samples. If you get one of these free samples, you be inclined to feel like you should buy the product in response.
+-	Commitment: If someone commits to something, either in writing or orally, they are more inclined to follow through on that commitment.
+-	Social Proof: Think about social proof as peer influence. If you are someone else doing something, such as using  a product, you will see that it is acceptable to do that. You may therefore be more willing to try the product, or whatever it is you’ve seen.
+-	Authority: If you’ve ever been pulled over by the police, you can recognize this one. Even if you haven’t, you may think back to being at school. In general, people are inclined to follow authority figures and do what they say and ask.
+-	Liking: If you like someone, you may be more easily swayed by what they think or do.
+-	Scarcity: The lack of availability of products increases their perceived value. The perception of increase value makes them more desirable.
+
+
 
 
 
